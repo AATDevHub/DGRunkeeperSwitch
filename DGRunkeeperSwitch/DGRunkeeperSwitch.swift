@@ -66,7 +66,11 @@ public class DGRunkeeperSwitch: UIControl {
     public var titleTopInset: CGFloat = 0 {
         didSet { setNeedsLayout() }
     }
-    
+
+    public var titleXMargin: CGFloat = 0 {
+        didSet { setNeedsLayout() }
+    }
+
     public var animationDuration: NSTimeInterval = 0.3
     public var animationSpringDamping: CGFloat = 0.75
     public var animationInitialSpringVelocity: CGFloat = 0.0
@@ -248,14 +252,14 @@ public class DGRunkeeperSwitch: UIControl {
         var leftTitleLabelSize = leftTitleLabel.sizeThatFits(CGSize(width: titleLabelMaxWidth, height: titleLabelMaxHeight))
         leftTitleLabelSize.width = min(leftTitleLabelSize.width, titleLabelMaxWidth)
         
-        let leftTitleLabelOrigin = CGPoint(x: floor((bounds.width / 2.0 - leftTitleLabelSize.width) / 2.0), y: (floor((bounds.height - leftTitleLabelSize.height) / 2.0) + titleTopInset))
+        let leftTitleLabelOrigin = CGPoint(x: floor((bounds.width / 2.0 - leftTitleLabelSize.width) / 2.0) + titleXMargin, y: (floor((bounds.height - leftTitleLabelSize.height) / 2.0) + titleTopInset))
         let leftTitleLabelFrame = CGRect(origin: leftTitleLabelOrigin, size: leftTitleLabelSize)
         (leftTitleLabel.frame, selectedLeftTitleLabel.frame) = (leftTitleLabelFrame, leftTitleLabelFrame)
         
         var rightTitleLabelSize = rightTitleLabel.sizeThatFits(CGSize(width: titleLabelMaxWidth, height: titleLabelMaxHeight))
         rightTitleLabelSize.width = min(rightTitleLabelSize.width, titleLabelMaxWidth)
         
-        let rightTitleLabelOrigin = CGPoint(x: floor(bounds.size.width / 2.0 + (bounds.width / 2.0 - rightTitleLabelSize.width) / 2.0), y: (floor((bounds.height - rightTitleLabelSize.height) / 2.0) + titleTopInset))
+        let rightTitleLabelOrigin = CGPoint(x: floor(bounds.size.width / 2.0 + (bounds.width / 2.0 - rightTitleLabelSize.width) / 2.0) - titleXMargin, y: (floor((bounds.height - rightTitleLabelSize.height) / 2.0) + titleTopInset))
         let rightTitleLabelFrame = CGRect(origin: rightTitleLabelOrigin, size: rightTitleLabelSize)
         (rightTitleLabel.frame, selectedRightTitleLabel.frame) = (rightTitleLabelFrame, rightTitleLabelFrame)
     }
