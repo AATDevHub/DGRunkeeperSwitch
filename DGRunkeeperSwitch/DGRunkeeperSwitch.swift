@@ -48,6 +48,10 @@ public class DGRunkeeperSwitch: UIControl {
         get { return selectedBackgroundView.backgroundColor }
     }
     
+    public var selectedBackgroundWidthFix: CGFloat = 0 {
+        didSet { setNeedsLayout() }
+    }
+    
     public var titleColor: UIColor! {
         set { (leftTitleLabel.textColor, rightTitleLabel.textColor) = (newValue, newValue) }
         get { return leftTitleLabel.textColor }
@@ -241,8 +245,9 @@ public class DGRunkeeperSwitch: UIControl {
     override public func layoutSubviews() {
         super.layoutSubviews()
         
-        let selectedBackgroundWidth = bounds.width / 2.0 - selectedBackgroundInset * 2.0
-        selectedBackgroundView.frame = CGRect(x: selectedBackgroundInset + CGFloat(selectedIndex) * (selectedBackgroundWidth + selectedBackgroundInset * 2.0), y: selectedBackgroundInset, width: selectedBackgroundWidth, height: bounds.height - selectedBackgroundInset * 2.0)
+        let selectedBackgroundWidth = bounds.width / 2.0 - selectedBackgroundInset * 2.0 + selectedBackgroundWidthFix
+        let selectedBackgroundXOffset = (selectedIndex == 0) ? 0 : -(selectedBackgroundWidthFix * 2)
+        selectedBackgroundView.frame = CGRect(x: selectedBackgroundInset + CGFloat(selectedIndex) * (selectedBackgroundWidth + selectedBackgroundInset * 2.0) + selectedBackgroundXOffset, y: selectedBackgroundInset, width: selectedBackgroundWidth, height: bounds.height - selectedBackgroundInset * 2.0)
         
         (titleLabelsContentView.frame, selectedTitleLabelsContentView.frame) = (bounds, bounds)
         
